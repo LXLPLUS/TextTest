@@ -46,4 +46,8 @@ public class PrintAllType {
         System.out.println("类型: " + type + ", 数据: " + message);
     }
 
+    static public String getInfo(Object o) {
+        return getString(o).get(0);
+    }
+
 }
