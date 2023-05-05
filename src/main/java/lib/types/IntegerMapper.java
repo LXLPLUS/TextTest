@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 
 public class IntegerMapper implements MapperStrToObjInterface{
 
-    final static String typeName = "java.util.List<java.lang.Double>";
+    final static String typeName = "int";
 
     @Override
     public boolean check(String str, Type type) {

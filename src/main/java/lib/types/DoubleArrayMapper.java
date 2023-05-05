@@ -11,7 +11,7 @@ public class DoubleArrayMapper implements MapperStrToObjInterface{
     /**
      * 反射可以获取的实际类名
      */
-    final static String typeName = "java.util.List<java.lang.Double>";
+    final static String typeName = "class [D";
 
     @Override
     public boolean check(String str, Type type) {

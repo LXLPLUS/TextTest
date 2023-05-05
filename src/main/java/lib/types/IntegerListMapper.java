@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class IntegerListMapper implements MapperStrToObjInterface{
 
-    final static String typeName = "java.util.List<java.lang.Double>";
+    final static String typeName = "java.util.List<java.lang.Integer>";
 
     @Override
     public boolean check(String str, Type type) {

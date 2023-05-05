@@ -4,8 +4,8 @@ import Solution.Solution;
 import lib.chain.PreCheck;
 import lib.chain.RunSolution;
 import lib.exception.AnnotationException;
+import lib.exception.ParserFailedException;
 import lib.interfaces.MainMethod;
-import lib.interfaces.SourceParam;
 import lib.interfaces.SourceParams;
 import lib.types.DoubleArrayMapper;
 import lib.types.DoubleListMapper;
@@ -13,7 +13,6 @@ import lib.types.LongListMapper;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.transform.Source;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -54,7 +53,7 @@ public class test {
     }
 
     @Test
-    public void run03() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void run03() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ParserFailedException {
         RunSolution runSolution = new RunSolution(Solution.class, MainMethod.class, SourceParams.class);
     }
 }

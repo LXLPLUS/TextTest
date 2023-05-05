@@ -1,6 +1,9 @@
 package utils;
 
+import lib.exception.ParserFailedException;
+
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +41,32 @@ public class MethodUtils {
             }
         }
         return methodWithAnnotationList.toArray(Method[]::new);
+    }
+
+
+    static public Object invoke(Object o, Method method, Object[] params) throws InvocationTargetException, IllegalAccessException, ParserFailedException {
+        if (params.length == 0) {
+            return method.invoke(o);
+        }
+        if (params.length == 1) {
+            return method.invoke(o, params[0]);
+        }
+        if (params.length == 2) {
+            return method.invoke(o, params[0], params[1]);
+        }
+        if (params.length == 3) {
+            return method.invoke(o, params[0], params[1], params[2]);
+        }
+        if (params.length == 4) {
+            return method.invoke(o, params[0], params[1], params[2], params[3]);
+        }
+        if (params.length == 5) {
+            return method.invoke(o, params[0], params[1], params[2], params[3], params[4]);
+        }
+        if (params.length == 6) {
+            return method.invoke(o, params[0], params[1], params[2], params[3], params[4], params[5]);
+        }
+        throw new ParserFailedException("参数大于6个,超过最大限制");
     }
 
 }

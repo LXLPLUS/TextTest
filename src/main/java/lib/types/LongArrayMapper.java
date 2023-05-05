@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LongArrayMapper implements MapperStrToObjInterface{
 
-    final static String typeName = "java.util.List<java.lang.Double>";
+    final static String typeName = "class [J";
 
     @Override
     public boolean check(String str, Type type) {

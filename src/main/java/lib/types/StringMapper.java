@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 
 public class StringMapper implements MapperStrToObjInterface{
 
-    final static String typeName = "java.util.List<java.lang.Double>";
+    final static String typeName = "class java.lang.String";
 
     @Override
     public boolean check(String str, Type type) {

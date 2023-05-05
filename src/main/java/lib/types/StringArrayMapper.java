@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 
 public class StringArrayMapper implements MapperStrToObjInterface{
 
-    final static String typeName = "java.util.List<java.lang.Double>";
+    final static String typeName = "[java.util.List<java.lang.String>";
 
     @Override
     public boolean check(String str, Type type) {

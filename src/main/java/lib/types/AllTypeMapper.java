@@ -1,5 +1,7 @@
 package lib.types;
 
+import lib.exception.ParserFailedException;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ public class AllTypeMapper implements MapperStrToObjInterface{
     /**
      * 注册一下解析器
      */
-    AllTypeMapper() {
+    public AllTypeMapper() {
         mapperList.add(new StringMapper());
         mapperList.add(new StringListMapper());
         mapperList.add(new StringArrayMapper());
@@ -40,20 +42,20 @@ public class AllTypeMapper implements MapperStrToObjInterface{
 
 
     @Override
-    public boolean check(String str, Type type) {
+    public boolean check(String str, Type type) throws ParserFailedException {
         String typeName = type.getTypeName();
         if (mapperMap.containsKey(typeName)) {
             return mapperMap.get(typeName).check(str, type);
         }
-        return false;
+        throw new ParserFailedException(type.getTypeName() + "这个方法没有被注册！导致注入失败");
     }
 
     @Override
-    public Object getMessage(String str, Type type) {
+    public Object getMessage(String str, Type type) throws ParserFailedException {
         if (mapperMap.containsKey(type.getTypeName())) {
             return mapperMap.get(type.getTypeName()).getMessage(str, type);
         }
-        return null;
+        throw new ParserFailedException(type.getTypeName() + "这个方法没有被注册！导致注入失败");
     }
 
     @Override

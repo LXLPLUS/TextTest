@@ -13,7 +13,7 @@ public class PrintAllType {
      * @param o 一个可用的类构造器
      * @return 一个解析的结果 + 类型
      */
-    static List<String> getString(Object o) {
+    public static List<String> getString(Object o) {
         if (o == null) {
             return List.of("null", "null");
         }
