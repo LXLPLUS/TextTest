@@ -1,7 +1,7 @@
-import demo.Test01;
+import Solution.Solution;
 import org.junit.jupiter.api.Test;
-import util.MethodUtils;
-import util.PrintAllType;
+import utils.MethodUtils;
+import utils.PrintAllType;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
@@ -12,7 +12,7 @@ public class startText {
 
     @Test
     public void run() {
-        Method[] metHodNotInObject = MethodUtils.getMetHodNotInObject(Test01.class);
+        Method[] metHodNotInObject = MethodUtils.getMetHodNotInObject(Solution.class);
         for (Method method : metHodNotInObject) {
             AnnotatedType annotatedReturnType = method.getAnnotatedReturnType();
             PrintAllType.print(annotatedReturnType.getType());

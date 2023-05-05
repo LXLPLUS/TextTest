@@ -1,4 +1,4 @@
-package util;
+package utils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,8 +10,8 @@ public class PrintAllType {
 
     /**]
      * 返回可读的字符
-     * @param o
-     * @return
+     * @param o 一个可用的类构造器
+     * @return 一个解析的结果 + 类型
      */
     static List<String> getString(Object o) {
         if (o == null) {

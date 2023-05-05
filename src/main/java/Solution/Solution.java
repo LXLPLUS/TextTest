@@ -1,20 +1,21 @@
-package demo;
+package Solution;
 
-public class Test01 {
+import lib.interfaces.MainMethod;
 
-    public Test01() {
-        System.out.println("test01");
-    }
+import javax.validation.constraints.NotNull;
 
-    // 注解
-    public Test01(String s) {
+public class Solution {
+    @NotNull
+    public void Test01(String s) {
         System.out.println("Test01, s = " + s);
     }
 
+    @MainMethod
     public int run(int a, int b) {
         return a + b;
     }
 
+    @MainMethod
     public int run2(int a, int b, int c) {
         return a + b + c;
     }
