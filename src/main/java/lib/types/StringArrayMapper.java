@@ -5,6 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.Type;
 
 public class StringArrayMapper implements MapperStrToObjInterface{
+
+    final static String typeName = "java.util.List<java.lang.Double>";
+
     @Override
     public boolean check(String str, Type type) {
         return true;
@@ -35,5 +38,10 @@ public class StringArrayMapper implements MapperStrToObjInterface{
         }
         str = str.replaceAll("\\s+", " ");
         return str.split(" ");
+    }
+
+    @Override
+    public String getTypeName() {
+        return typeName;
     }
 }

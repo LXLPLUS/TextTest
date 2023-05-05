@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LongListMapper implements MapperStrToObjInterface{
+
+    final static String typeName = "java.util.List<java.lang.Double>";
+
     @Override
     public boolean check(String str, Type type) {
         return new DoubleListMapper().check(str, type);
@@ -16,5 +19,10 @@ public class LongListMapper implements MapperStrToObjInterface{
     public Object getMessage(String str, Type type) {
         List<Double> message = (List<Double>) new DoubleListMapper().getMessage(str, type);
         return message.stream().mapToLong(Double::longValue).boxed().collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public String getTypeName() {
+        return typeName;
     }
 }

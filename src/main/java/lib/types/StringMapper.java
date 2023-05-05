@@ -3,6 +3,9 @@ package lib.types;
 import java.lang.reflect.Type;
 
 public class StringMapper implements MapperStrToObjInterface{
+
+    final static String typeName = "java.util.List<java.lang.Double>";
+
     @Override
     public boolean check(String str, Type type) {
         return true;
@@ -17,5 +20,10 @@ public class StringMapper implements MapperStrToObjInterface{
             return str.substring(1, str.length() - 1);
         }
         return str;
+    }
+
+    @Override
+    public String getTypeName() {
+        return typeName;
     }
 }

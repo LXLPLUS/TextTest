@@ -2,6 +2,7 @@ package test;
 
 import Solution.Solution;
 import lib.chain.PreCheck;
+import lib.chain.RunSolution;
 import lib.exception.AnnotationException;
 import lib.interfaces.MainMethod;
 import lib.interfaces.SourceParam;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.Source;
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -49,5 +51,10 @@ public class test {
         } catch (AnnotationException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void run03() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        RunSolution runSolution = new RunSolution(Solution.class, MainMethod.class, SourceParams.class);
     }
 }

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class MethodUtils {
     static final Object emptyObject = new Object();
-    static final Set<String> defaultMethods = Arrays.stream(emptyObject.getClass().getMethods()).map(Method::toString).collect(Collectors.toSet());;
+    static final Set<String> defaultMethods = Arrays.stream(emptyObject.getClass().getMethods()).map(Method::toString).collect(Collectors.toSet());
 
     /**
      * 检查所有方法，去除Object的方法

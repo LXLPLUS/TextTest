@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringListMapper implements MapperStrToObjInterface{
+
+    final static String typeName = "java.util.List<java.lang.Double>";
+
     @Override
     public boolean check(String str, Type type) {
         return true;
@@ -15,4 +18,10 @@ public class StringListMapper implements MapperStrToObjInterface{
         String[] stringArray = (String[]) new StringArrayMapper().getMessage(str, type);
         return new ArrayList<>(List.of(stringArray));
     }
+
+    @Override
+    public String getTypeName() {
+        return typeName;
+    }
+
 }

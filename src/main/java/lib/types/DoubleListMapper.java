@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class DoubleListMapper implements MapperStrToObjInterface{
 
+    final static String typeName = "java.util.List<java.lang.Double>";
+
     /**
      * 字符串切割的规则
      * @param str 被切割的字符串
@@ -40,5 +42,10 @@ public class DoubleListMapper implements MapperStrToObjInterface{
     public Object getMessage(String str, Type type) {
         String[] split = cutString(str);
         return Arrays.stream(split).map(Double::parseDouble).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public String getTypeName() {
+        return typeName;
     }
 }

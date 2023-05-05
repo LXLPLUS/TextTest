@@ -1,6 +1,5 @@
 package lib.chain;
 
-import com.fasterxml.jackson.databind.introspect.Annotated;
 import lib.exception.AnnotationException;
 import lib.interfaces.SourceParams;
 import utils.MethodUtils;
@@ -8,7 +7,6 @@ import utils.PrintAllType;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 public class PreCheck {
     public PreCheck(Class<?> c, Class<? extends Annotation> startAnnotation, Class<? extends SourceParams> sourceAnnotation) throws AnnotationException {
