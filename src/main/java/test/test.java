@@ -1,29 +1,26 @@
 package test;
 
 import Solution.Solution;
-import lib.chain.PreCheck;
-import lib.chain.RunSolution;
+import lib.chain.TextPreCheck;
 import lib.exception.AnnotationException;
 import lib.exception.ParserFailedException;
-import lib.interfaces.MainMethod;
-import lib.interfaces.SourceParams;
-import lib.types.DoubleArrayMapper;
-import lib.types.DoubleListMapper;
-import lib.types.LongListMapper;
+import lib.interfaces.TestCollect;
+import lib.interfaces.TextTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 
 public class test {
 
     @Test
     public void run() {
-        Method[] methodWithInterface = MethodUtils.getMethodsWithAnnotation(Solution.class, MainMethod.class);
+        Method[] methodWithInterface = MethodUtils.getMethodsWithAnnotation(Solution.class, TextTest.class);
         for (Method method : methodWithInterface) {
             AnnotatedType annotatedReturnType = method.getAnnotatedReturnType();
             Type type = annotatedReturnType.getType();
@@ -37,23 +34,16 @@ public class test {
 
     @Test
     public void run01() {
-        String data = "[125635, 2, 5, 6, 8, 8.1]";
-        System.out.println(Arrays.toString((double[]) new DoubleArrayMapper().getMessage(data, null)));
-        System.out.println(new DoubleListMapper().getMessage(data, null));
-        System.out.println(new LongListMapper().getMessage(data, null));
-    }
-
-    @Test
-    public void run02() {
-        try {
-            PreCheck preCheck = new PreCheck(Solution.class, MainMethod.class, SourceParams.class);
-        } catch (AnnotationException e) {
-            e.printStackTrace();
+        for (Method method : Solution.class.getMethods()) {
+            System.out.println(method);
+            for (Annotation annotation : method.getAnnotations()) {
+                System.out.println(annotation);
+            }
         }
     }
 
     @Test
-    public void run03() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ParserFailedException {
-        RunSolution runSolution = new RunSolution(Solution.class, MainMethod.class, SourceParams.class);
+    public void run03() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ParserFailedException, IOException, AnnotationException {
+        System.out.println(new TextPreCheck(Solution.class, TextTest.class, TestCollect.class));
     }
 }

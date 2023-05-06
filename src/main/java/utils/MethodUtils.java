@@ -27,20 +27,20 @@ public class MethodUtils {
         return methodList.toArray(Method[]::new);
     }
 
-    /**
-     * 检查类上存在某注解的方法
-     * @param c 一个需要分析的类
-     * @param annotation 加入的注解
-     * @return method数组
-     */
-    static public Method[] getMethodWithInterface(Class<?> c, Class<? extends Annotation> annotation) {
-        List<Method> methodWithAnnotationList = new ArrayList<>();
-        for (Method method : c.getMethods()) {
-            if (method.isAnnotationPresent(annotation)) {
-                methodWithAnnotationList.add(method);
+    @SafeVarargs
+    static public Method[] getMethodWithInterface(Class<?> c, Class<? extends Annotation>... annotation) {
+        HashSet<String> uniqueSet = new HashSet<>();
+        List<Method> methodList = new ArrayList<>();
+        Method[] methods = c.getMethods();
+        for (Method method : methods) {
+            for (Class<? extends Annotation> checkAnnotation : annotation) {
+                if (!uniqueSet.contains(checkAnnotation.getName())) {
+                    uniqueSet.add(checkAnnotation.getName());
+                    methodList.add(method);
+                }
             }
         }
-        return methodWithAnnotationList.toArray(Method[]::new);
+        return methodList.toArray(Method[]::new);
     }
 
 
@@ -66,7 +66,7 @@ public class MethodUtils {
         if (params.length == 6) {
             return method.invoke(o, params[0], params[1], params[2], params[3], params[4], params[5]);
         }
-        throw new ParserFailedException("参数大于6个,超过最大限制");
+        throw new ParserFailedException("参数大于6个,超过最大限制(真的有必要那么多参数嘛)");
     }
 
 }
