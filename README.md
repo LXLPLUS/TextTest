@@ -7,11 +7,11 @@
 ### 适用场合
 
 大量的、重复的、多种数据结构的某个方法单侧。
-为了面试刷题的时候，将参数导入到核心代码中
+为了面试刷以核心算法为题的时候，将屏幕上的参数导入到核心代码中
 
 
 是否遇见过这种问题：
-``` java
+```
 int sum(List<Integer> list1, List<Inter> list2) {
     int sum = 0;
     for (int i : list1) {
@@ -24,10 +24,10 @@ int sum(List<Integer> list1, List<Inter> list2) {
 }
 ```
 
-这个代码看起来没有问题：但是很明显：会爆int。
+这个代码看起来没有问题：但是有隐患：会爆int。
 
-正常的测试就得写个方法，往列表里面写入值：
-```java
+正常的测试就得写个方法，写入数据，然后主动启动一个类，最后往列表里面写入值：
+```
 List<Interger> list1 = new ArrayList<>();
 for (int i = 0; i < 100000; i++) {
     list.add(i);
@@ -36,9 +36,10 @@ for (int i = 0; i < 100000; i++) {
 Fun fun = new fun();
 fun.sum(list1, list1);
 ```
+上哪里来那么多随机数据？
 
 这只是单一类型，如果是这种呢？
-```java
+```
 int sum(int a, long b, List<String> c, DateTime d, ListNode e) {}
 ```
 
@@ -53,9 +54,10 @@ public class Solution {
 }
 ```
 
-启动方式很简单:
+启动方式很简单:执行TextTestStarter，将类的class传进去。
+然后执行@Test 或者直接psvm新建一个main方法
 
-```java
+```
 public static void main(String[]args){
     new TextTestStarter(Solution.class);
 }
@@ -63,7 +65,6 @@ public static void main(String[]args){
 然后在需要启动的类中加入注解@TextTest(value = "单侧文件的名字.ttest")
 ```java
 public class Solution {
-
     @TextTest(value = "1.ttest")
     public int run(String a, List<Integer> b, int[] c, ListNode d, TreeNode e, String[] f) {
         return (int) (b.get(0) + c[0] + d.val + e.val + f[0].charAt(0));
@@ -71,7 +72,7 @@ public class Solution {
 }
 ```
 在1.ttest填入数据
-```java
+``` 
 "babad"
 [11]
 [12]
@@ -81,7 +82,7 @@ abc
 ```
 
 得到结果：
-```java
+```
 [INFO ] 2023-05-06 18:12:06.162 方法run 的1.ttest 配置文件已经找到, 准备配置
 [DEBUG] 2023-05-06 18:12:06.198 采集完成！一共 1 个任务
 [INFO ] 2023-05-06 18:12:06.293 开始任务, 配置文件1.ttest, 方法为examples.Solution@53b7f657 的 run
@@ -94,7 +95,8 @@ abc
 [INFO ] 2023-05-06 18:12:06.327 获取结果, 类型为 class java.lang.Integer ,值为 126
 ```
 
-当然，在src/main/java/examples里面有个例子，git clone了以后可以尝试test里面的run方法。
+当然，在src/main/java/examples里面有个例子
+git clone了以后可以尝试test里面的run方法，我相信自然会理解这个项目干了什么
 
 ### 细节
 * 项目是基于JDK11的，JDK8如果想用可能会稍微改一改方法。
@@ -105,6 +107,11 @@ JackJson无法解析的我也无法解析
 * 为了刷题的人，自己实现了TreeNode和NListNode方法，可以直接复制数组即可序列化为对应数据结构
 至于具体实现可以看代码
 * 对数组类String[] 实现了简易导入，如果有需要可以注册导入规则到WorkerParser。实现自定义解析
+
+
+### todo
+* 代码内自动生成范围内的随机数。或者特定格式的数据、人名、时间、工具，可以手写parser到WorkerParser实现
+* 之前准备用注解，但是弃用了，继续叠加功能也可以
 
 #### Thanks
 现在还没有人……

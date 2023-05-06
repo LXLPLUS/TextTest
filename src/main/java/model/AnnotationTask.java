@@ -1,6 +1,5 @@
 package model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,7 +28,7 @@ public class AnnotationTask {
         this.filePath = filePath;
         this.method = method;
         TypeArray = method.getParameterTypes();
-        JsonList = FilesWalkUtils.getStringListWithOutBlack(filePath).toArray(String[]::new);
+        JsonList = FilesWalkUtils.getStringListWithOutBlackOrNote(filePath).toArray(String[]::new);
     }
 
 }

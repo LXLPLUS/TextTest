@@ -1,16 +1,11 @@
 package utils;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FilesWalkUtils {
     public static List<Path> getFileList(String filepath, String suffix) throws IOException {
@@ -21,14 +16,14 @@ public class FilesWalkUtils {
     }
 
     public static int getRowCountWithoutBlack(Path path) throws IOException {
-        List<String> stringList = Files.readAllLines(path);
-        stringList.removeIf(String::isBlank);
-        return stringList.size();
+        return getStringListWithOutBlackOrNote(path).size();
     }
 
-    public static List<String> getStringListWithOutBlack(Path path) throws IOException {
+    public static List<String> getStringListWithOutBlackOrNote(Path path) throws IOException {
         List<String> stringList = Files.readAllLines(path);
         stringList.removeIf(String::isBlank);
+        stringList.removeIf(x -> x.startsWith("#"));
+        stringList.removeIf(x -> x.startsWith("//"));
         return stringList;
     }
 
