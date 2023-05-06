@@ -1,8 +1,7 @@
 package perser;
 
 import lib.javaCollections.ListNode;
-
-import javax.swing.tree.TreeNode;
+import lib.javaCollections.TreeNode;
 
 /**
  * 实际的解析器，也是唯一的入口
@@ -12,9 +11,17 @@ import javax.swing.tree.TreeNode;
 public class WorkerParser implements parserInterface{
 
     ListNodeParser listNodeParser = new ListNodeParser();
+    TreeNodeParser treeNodeParser = new TreeNodeParser();
+    QuickStringArrayParser quickStringArrayParser = new QuickStringArrayParser();
 
     @Override
     public Object parser(String str, Class<?> ruler) throws Exception {
+        if (ruler.isAssignableFrom(String[].class) && !str.startsWith("[")) {
+            return quickStringArrayParser.parser(str, String[].class);
+        }
+        if (ruler.isAssignableFrom(TreeNode.class)) {
+            return treeNodeParser.parser(str, TreeNode.class);
+        }
         if (ruler.isAssignableFrom(ListNode.class)) {
             return listNodeParser.parser(str, ListNode.class);
         }

@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
 public class test {
 
     @Test
-    public void run04() throws Exception {
+    public void run() throws Exception {
         new TextTestStarter(Solution.class);
     }
 }
