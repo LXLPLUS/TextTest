@@ -31,7 +31,7 @@ public class TextPreCheck {
 
     // 检查是否存在可进入的注解对
     // 不需要实例化这个class就可以使用的方法
-    public static boolean accessAble(Class<?> c, Class<? extends Annotation> startAnnotation, Class <? extends TestCollect> collectAnnotation) {
+    public static boolean checkTextAnnotation(Class<?> c, Class<? extends Annotation> startAnnotation, Class <? extends TestCollect> collectAnnotation) {
         return utils.MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation).length > 0;
     }
 

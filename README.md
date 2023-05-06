@@ -59,7 +59,7 @@ public class Solution {
 
 ```
 public static void main(String[]args){
-    new TextTestStarter(Solution.class);
+    new TextTestStarter(Solution.class).starkAllTask();
 }
 ```
 然后在需要启动的类中加入注解@TextTest(value = "单侧文件的名字.ttest")

@@ -29,14 +29,13 @@ public class MethodUtils {
 
     @SafeVarargs
     static public Method[] getMethodWithInterface(Class<?> c, Class<? extends Annotation>... annotation) {
-        HashSet<String> uniqueSet = new HashSet<>();
         List<Method> methodList = new ArrayList<>();
         Method[] methods = c.getMethods();
         for (Method method : methods) {
             for (Class<? extends Annotation> checkAnnotation : annotation) {
-                if (!uniqueSet.contains(checkAnnotation.getName())) {
-                    uniqueSet.add(checkAnnotation.getName());
+                if (method.getAnnotation(checkAnnotation) != null) {
                     methodList.add(method);
+                    break;
                 }
             }
         }

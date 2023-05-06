@@ -2,7 +2,6 @@ package model;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import utils.FilesWalkUtils;
 
 import java.io.IOException;
@@ -12,23 +11,36 @@ import java.nio.file.Path;
 
 @Getter
 @Setter
-@ToString
 public class AnnotationTask {
     Object object;
     Class<?> c;
-    Path filePath;
+    Path filePath = null;
     Method method;
     Class<?>[] TypeArray;
-    String[] JsonList;
+    String[] jsonList;
+    String taskFrom = "undefined";
 
 
-    public AnnotationTask(Class<?> c, Path filePath, Method method) throws IOException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public AnnotationTask(Class<?> c, Path filePath, Method method) throws IOException {
         this.c = c;
-        this.object = c.getDeclaredConstructor().newInstance();
         this.filePath = filePath;
         this.method = method;
         TypeArray = method.getParameterTypes();
-        JsonList = FilesWalkUtils.getStringListWithOutBlackOrNote(filePath).toArray(String[]::new);
+        jsonList = FilesWalkUtils.getStringListWithOutBlackOrNote(filePath).toArray(String[]::new);
     }
 
+    public AnnotationTask(Class<?> c, String[] jsonList, Method method){
+        this.c = c;
+        this.method = method;
+        TypeArray = method.getParameterTypes();
+        this.jsonList = jsonList;
+    }
+
+    /**
+     * 为了保证每次获取的都是最新的实例，不然就跟一个线程调用两次start方法一样不可预知
+     */
+    public Object getObject() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        object = c.getDeclaredConstructor().newInstance();
+        return object;
+    }
 }

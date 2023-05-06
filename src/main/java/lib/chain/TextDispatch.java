@@ -1,13 +1,10 @@
 package lib.chain;
 
-import lib.exception.AnnotationException;
-import lib.exception.ParserFailedException;
 import lib.interfaces.TestCollect;
 import lib.interfaces.TextTest;
 import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.jupiter.api.Test;
 import perser.WorkerParser;
 import utils.FilesWalkUtils;
 import utils.MethodUtils;
@@ -15,22 +12,18 @@ import utils.PrintAllType;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
-public class TestRunSolution {
+public class TextDispatch {
 
     List<AnnotationTask> taskList = new ArrayList<>();
 
-    public TestRunSolution(Class<?> c, Class<? extends TextTest> textTestAnnotation,
-                           Class<? extends TestCollect> testCollectAnnotation)
+    public TextDispatch(Class<?> c, Class<? extends TextTest> textTestAnnotation,
+                        Class<? extends TestCollect> testCollectAnnotation)
             throws Exception {
 
         // 进行安全检查，发现是否有不符合条件的数据，如果有的话就直接异常
@@ -39,14 +32,10 @@ public class TestRunSolution {
 
         // 获取所有任务
         getAllTask(c, textTestAnnotation, testCollectAnnotation);
-
-        // 启动所有任务
-        startAllTask();
     }
 
     void getAllTask(Class<?> c, Class<? extends TextTest> textTestAnnotation,
-                    Class<? extends TestCollect> testCollectAnnotation)
-            throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+                    Class<? extends TestCollect> testCollectAnnotation) throws IOException {
 
         List<Pair<Method, TextTest>> methodAnnotationPairList = new ArrayList<>();
 
@@ -79,25 +68,29 @@ public class TestRunSolution {
 
             for (Path path : fileList) {
                 if (path.endsWith(Path.of(fileName))) {
-                    taskList.add(new AnnotationTask(c, path, method));
+                    AnnotationTask annotationTask = new AnnotationTask(c, path, method);
+                    annotationTask.setTaskFrom(annotationTask.getFilePath().getFileName().toString());
+                    taskList.add(annotationTask);
                 }
             }
         }
         log.debug("采集完成！一共 {} 个任务", taskList.size());
     }
 
-    void startAllTask() throws Exception {
+    public void startAllTask() throws Exception {
         for (AnnotationTask annotationTask : taskList) {
             startTask(annotationTask);
         }
     }
 
-    void startTask(AnnotationTask annotationTask) throws Exception {
-
+    static public void startTask(AnnotationTask annotationTask) throws Exception {
         WorkerParser workerParser = new WorkerParser();
         Method method = annotationTask.getMethod();
-        log.info("开始任务, 配置文件{}, 方法为{} 的 {}",
-                annotationTask.getFilePath().getFileName().toString(),
+        log.info("---------------------------===============------------------------------------");
+        log.info("---------------------------||task_start ||------------------------------------");
+        log.info("---------------------------===============------------------------------------");
+        log.info("开始任务, 任务来源 {}, 方法为 {} 的 {}",
+                annotationTask.getTaskFrom(),
                 annotationTask.getObject(),
                 method.getName());
 
@@ -114,7 +107,5 @@ public class TestRunSolution {
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);
         List<String> dataAndType = PrintAllType.getString(invoke);
         log.info("获取结果, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
-
-
     }
 }
