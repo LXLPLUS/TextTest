@@ -9,6 +9,7 @@ import perser.WorkerParser;
 import utils.FilesWalkUtils;
 import utils.MethodUtils;
 import utils.PrintAllType;
+import utils.Timer;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.util.List;
 public class TextDispatch {
 
     List<AnnotationTask> taskList = new ArrayList<>();
+    static WorkerParser workerParser = new WorkerParser();
+    static Timer timer = new Timer();
 
     public TextDispatch(Class<?> c, Class<? extends TextTest> textTestAnnotation,
                         Class<? extends TestCollect> testCollectAnnotation)
@@ -79,12 +82,15 @@ public class TextDispatch {
 
     public void startAllTask() throws Exception {
         for (AnnotationTask annotationTask : taskList) {
-            startTask(annotationTask);
+            try {
+                startTask(annotationTask);
+            } catch (Exception e) {
+                log.error("任务失败, 失败信息 {} ", e.getMessage());
+            }
         }
     }
 
     static public void startTask(AnnotationTask annotationTask) throws Exception {
-        WorkerParser workerParser = new WorkerParser();
         Method method = annotationTask.getMethod();
         log.info("---------------------------===============------------------------------------");
         log.info("---------------------------||task_start ||------------------------------------");
@@ -103,9 +109,17 @@ public class TextDispatch {
             List<String> dataAndType = PrintAllType.getString(objectList[i]);
             log.info("成功注入, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
         }
-
+        timer.time();
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);
+        timer.time();
         List<String> dataAndType = PrintAllType.getString(invoke);
         log.info("获取结果, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
+        long timer = TextDispatch.timer.getTimer();
+        if (timer == 0) {
+            log.info("运算时间小于1毫秒");
+        }
+        else {
+            log.info("该方法运行了 {} 毫秒", timer);
+        }
     }
 }

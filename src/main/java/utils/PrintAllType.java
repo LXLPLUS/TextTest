@@ -18,23 +18,29 @@ public class PrintAllType {
             return List.of("null", "null");
         }
         if (o instanceof int[]) {
-            return List.of(Arrays.toString((int[])(o)), "int[]");
+            return List.of(Arrays.toString((int[])(o)), int[].class.getTypeName());
         }
         else if (o instanceof long[]) {
-            return List.of(Arrays.toString((long[])(o)), "long[]");
+            return List.of(Arrays.toString((long[])(o)), long[].class.getTypeName());
         }
         else if (o instanceof int[][]) {
-            return List.of(Arrays.deepToString((int[][])(o)), "int[][]");
+            return List.of(Arrays.deepToString((int[][])(o)), int[][].class.getTypeName());
+        }
+        else if (o instanceof char[]) {
+            return List.of(Arrays.toString((char[]) o), char[].class.getTypeName());
+        }
+        else if (o instanceof char[][]) {
+            return List.of(Arrays.toString((char[][]) o), char[][].class.getTypeName());
         }
         else if (o instanceof long[][]) {
-            return List.of(Arrays.deepToString((long[][])(o)), "long[][]");
+            return List.of(Arrays.deepToString((long[][])(o)), long[][].class.getTypeName());
         }
         else if (o instanceof Object[]) {
             Object[] temp = (Object[]) o;
             if (temp.length > 0) {
                 return List.of(Arrays.toString((Object[]) o), temp[0].getClass().toString() + "[]");
             }
-            return List.of(Arrays.toString((Object[]) o), "Object[]");
+            return List.of(Arrays.toString((Object[]) o), Object.class.getTypeName());
         }
         return List.of(o.toString(), o.getClass().toString());
     }
