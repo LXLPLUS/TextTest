@@ -95,7 +95,19 @@ abc
 [INFO ] 2023-05-06 18:12:06.327 获取结果, 类型为 class java.lang.Integer ,值为 126
 ```
 
-当然，在src/main/java/examples里面有个例子
+当然也有第二种用法:
+```
+    @SourceParam(value = "1")
+    @SourceParam(value = "[2]")
+    @SourceParam(value = "[3]")
+    @SourceParam(value = "[4]")
+    @SourceParam(value = "[5]")
+    @SourceParam(value = "[6]")
+    public int run02(String a, List<Integer> b, int[] c, ListNode d, TreeNode e, String[] f) {
+        return (b.get(0) + c[0] + d.val + e.val + f[0].charAt(0));
+    }
+```
+如果实在无法理解，在src/main/java/examples里面有例子
 git clone了以后可以尝试test里面的run方法，我相信自然会理解这个项目干了什么
 
 ### 细节
