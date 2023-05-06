@@ -7,7 +7,6 @@ import java.util.List;
 public class Solution {
 
     @TextTest("1.ttest")
-    @TextTest("2.ttest")
     public int run(String a, List<Integer> b, int[] c, List<Double> d) {
         return (int) (b.get(0) + c[0] + d.get(0));
     }
@@ -17,7 +16,6 @@ public class Solution {
     }
 
     private void testPrivate() {
-
     }
 
     private int testPrivate(int a) {

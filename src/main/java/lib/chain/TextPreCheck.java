@@ -5,7 +5,6 @@ import lib.exception.ParserFailedException;
 import lib.interfaces.TestCollect;
 import lib.interfaces.TextTest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import utils.FilesWalkUtils;
@@ -16,7 +15,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -74,9 +72,9 @@ public class TextPreCheck {
             for (Path path : fileList) {
                 if (path.endsWith(Path.of(fileName))) {
                     count++;
-                    if (FilesWalkUtils.getRowCountwithoutBlack(path) != parameterTypes.length) {
+                    if (FilesWalkUtils.getRowCountWithoutBlack(path) != parameterTypes.length) {
                         log.warn("发现参数和配置文件指定的路径行数不符！ 方法为{}, 可用的参数为 {}, 实际提供的行数:{}",
-                                method.getName(), parameterTypes.length, FilesWalkUtils.getRowCountwithoutBlack(path));
+                                method.getName(), parameterTypes.length, FilesWalkUtils.getRowCountWithoutBlack(path));
                         throw new ParserFailedException("参数行数不符！");
                     }
                 }

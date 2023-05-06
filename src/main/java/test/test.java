@@ -1,6 +1,7 @@
 package test;
 
 import Solution.Solution;
+import lib.chain.TestRunSolution;
 import lib.chain.TextPreCheck;
 import lib.exception.AnnotationException;
 import lib.exception.ParserFailedException;
@@ -45,5 +46,10 @@ public class test {
     @Test
     public void run03() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ParserFailedException, IOException, AnnotationException {
         System.out.println(new TextPreCheck(Solution.class, TextTest.class, TestCollect.class));
+    }
+
+    @Test
+    public void run04() throws Exception {
+        new TestRunSolution(Solution.class, TextTest.class, TestCollect.class);
     }
 }

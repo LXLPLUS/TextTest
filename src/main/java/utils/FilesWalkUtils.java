@@ -20,9 +20,16 @@ public class FilesWalkUtils {
         return pathCollect;
     }
 
-    public static int getRowCountwithoutBlack(Path path) throws IOException {
+    public static int getRowCountWithoutBlack(Path path) throws IOException {
         List<String> stringList = Files.readAllLines(path);
         stringList.removeIf(String::isBlank);
         return stringList.size();
     }
+
+    public static List<String> getStringListWithOutBlack(Path path) throws IOException {
+        List<String> stringList = Files.readAllLines(path);
+        stringList.removeIf(String::isBlank);
+        return stringList;
+    }
+
 }
