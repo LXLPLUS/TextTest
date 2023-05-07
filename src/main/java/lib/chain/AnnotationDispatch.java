@@ -24,11 +24,11 @@ public class AnnotationDispatch {
     }
 
     void getTask(Class<?> c, Class<? extends SourceParam> startAnnotation,
-                        Class <? extends SourceParams> collectAnnotation) throws IOException {
+                        Class <? extends SourceParams> collectAnnotation){
         Method[] methods = MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation);
 
-        List<String> stringList = new ArrayList<>();
         for (Method method : methods) {
+            List<String> stringList = new ArrayList<>();
             if (method.getAnnotation(startAnnotation) != null) {
                 stringList.add(method.getAnnotation(startAnnotation).value());
             }
@@ -37,16 +37,19 @@ public class AnnotationDispatch {
                     stringList.add(sourceParam.value());
                 }
             }
+            if (stringList.isEmpty()) {
+                continue;
+            }
             AnnotationTask annotationTask = new AnnotationTask(c, stringList.toArray(String[]::new), method);
             annotationTask.setTaskFrom("注解SourceFrom");
             taskList.add(annotationTask);
-            log.debug("成功采集到 {} 个任务", taskList.size());
         }
+        log.debug("通过注解成功采集到 {} 个任务", taskList.size());
     }
 
     public void startAllTask() throws Exception {
         for (AnnotationTask annotationTask : taskList) {
-            TextDispatch.startTask(annotationTask);
+            new TaskStarter(annotationTask);
         }
     }
 }

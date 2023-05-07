@@ -7,6 +7,7 @@ import utils.FilesWalkUtils;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.nio.file.Path;
 
 @Getter
@@ -19,6 +20,7 @@ public class AnnotationTask {
     Class<?>[] TypeArray;
     String[] jsonList;
     String taskFrom = "undefined";
+    Type[] realTypes;
 
 
     public AnnotationTask(Class<?> c, Path filePath, Method method) throws IOException {
@@ -26,12 +28,14 @@ public class AnnotationTask {
         this.filePath = filePath;
         this.method = method;
         TypeArray = method.getParameterTypes();
+        realTypes = method.getGenericParameterTypes();
         jsonList = FilesWalkUtils.getStringListWithOutBlackOrNote(filePath).toArray(String[]::new);
     }
 
     public AnnotationTask(Class<?> c, String[] jsonList, Method method){
         this.c = c;
         this.method = method;
+        realTypes = method.getGenericParameterTypes();
         TypeArray = method.getParameterTypes();
         this.jsonList = jsonList;
     }
@@ -39,7 +43,8 @@ public class AnnotationTask {
     /**
      * 为了保证每次获取的都是最新的实例，不然就跟一个线程调用两次start方法一样不可预知
      */
-    public Object getObject() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public Object getObject()
+            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         object = c.getDeclaredConstructor().newInstance();
         return object;
     }

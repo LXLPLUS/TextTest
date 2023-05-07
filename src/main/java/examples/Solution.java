@@ -15,13 +15,23 @@ public class Solution {
     }
 
     @SourceParam(value = "RandomInt(100, 1, 100)")
-    @SourceParam(value = "Range(1, 1000, 2)")
-    @SourceParam(value = "Range(1, 1000, 2)")
+    @SourceParam(value = "Range(1, 100, 2)")
+    @SourceParam(value = "Range(1, 100, 2)")
     @SourceParam(value = "[1]")
     @SourceParam(value = "[\"b\"]")
-    @SourceParam(value = "[6]")
-    public int run02(List<String> a, List<Integer> b, int[] c, ListNode d, char[] e, String[] f) {
+    @SourceParam(value = "[6, 7]")
+    public double run02(List<Integer> a, List<Long> b, int[] c, ListNode d, char[] e, String[] f) {
         return (b.get(0) + c[0] + d.val + e[0] + f[0].charAt(0));
+    }
+
+    @SourceParam(value = "RandomInt(100, 1, 100)")
+    @SourceParam(value = "[1, 2]")
+    @SourceParam(value = "[1, 5, 5]")
+    @SourceParam(value = "[1]")
+    @SourceParam(value = "[\"b\"]")
+    @SourceParam(value = "UUID")
+    public String run03(int[] a, List<Long> b, int[] c, ListNode d, char[] e, String f) {
+        return f + (b.get(0) + c[0] + d.val + e[0]);
     }
 
 

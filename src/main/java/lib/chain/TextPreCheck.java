@@ -23,7 +23,10 @@ public class TextPreCheck {
     List<Path> fileList;
     List<Pair<Method, TextTest>> methodList = new ArrayList<>();
 
-    public TextPreCheck(Class<?> c, Class<? extends Annotation> startAnnotation, Class <? extends TestCollect> collectAnnotation) throws AnnotationException, IOException, ParserFailedException {
+    public TextPreCheck(Class<?> c,
+                        Class<? extends Annotation> startAnnotation,
+                        Class <? extends TestCollect> collectAnnotation)
+            throws AnnotationException, IOException, ParserFailedException {
         getPathList();
         checkMainAnnotation(c, startAnnotation, collectAnnotation);
         getPathFromAnnotation();
@@ -31,13 +34,17 @@ public class TextPreCheck {
 
     // 检查是否存在可进入的注解对
     // 不需要实例化这个class就可以使用的方法
-    public static boolean checkTextAnnotation(Class<?> c, Class<? extends Annotation> startAnnotation, Class <? extends TestCollect> collectAnnotation) {
+    public static boolean checkTextAnnotation(Class<?> c,
+                                              Class<? extends Annotation> startAnnotation,
+                                              Class <? extends TestCollect> collectAnnotation) {
         return utils.MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation).length > 0;
     }
 
     // 从注解中获取TestText注解
     // 重复注解会被转行为TestCollect,需要进行解包
-    void checkMainAnnotation(Class<?> c, Class<? extends Annotation> startAnnotation, Class <? extends TestCollect> collectAnnotation) throws AnnotationException {
+    void checkMainAnnotation(Class<?> c,
+                             Class<? extends Annotation> startAnnotation,
+                             Class <? extends TestCollect> collectAnnotation) throws AnnotationException {
         Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(c, startAnnotation);
         for (Method method : methodsWithAnnotation) {
             methodList.add(Pair.of(method, (TextTest) method.getAnnotation(startAnnotation)));
@@ -74,7 +81,8 @@ public class TextPreCheck {
                     count++;
                     if (FilesWalkUtils.getRowCountWithoutBlack(path) != parameterTypes.length) {
                         log.warn("发现参数和配置文件指定的路径行数不符！ 方法为{}, 可用的参数为 {}, 实际提供的行数:{}",
-                                method.getName(), parameterTypes.length, FilesWalkUtils.getRowCountWithoutBlack(path));
+                                method.getName(), parameterTypes.length,
+                                FilesWalkUtils.getRowCountWithoutBlack(path));
                         throw new ParserFailedException("参数行数不符！");
                     }
                 }
@@ -84,7 +92,7 @@ public class TextPreCheck {
                         method.getName(), fileName);
                 throw new ParserFailedException("没有可解析的文件！");
             }
-            log.info("方法{} 的{} 配置文件已经找到, 准备配置", method.getName(), fileName);
+            log.debug("方法{} 的{} 配置文件已经找到", method.getName(), fileName);
         }
     }
 }

@@ -3,16 +3,17 @@ package perser;
 import lombok.extern.slf4j.Slf4j;
 import utils.StringBuilderUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Slf4j
-public class RandomIntParser implements parserInterface{
+public class RandomIntParser implements ParserInterface {
 
     Random r = new Random();
     @Override
-    public Object parser(String str, Class<?> ruler) throws Exception {
+    public Object parser(String str, Class<?> ruler, Type type) throws Exception {
         long[] allInteger = StringBuilderUtils.getAllInteger(str);
         long nums = allInteger[0];
         long left = Integer.MIN_VALUE;
@@ -31,7 +32,7 @@ public class RandomIntParser implements parserInterface{
         if (ruler.isAssignableFrom(int[].class)) {
             return list.stream().mapToInt(x -> x).toArray();
         }
-        if (ruler.isAssignableFrom(ArrayList.class)) {
+        if (ruler.isAssignableFrom(ArrayList.class) && type.getTypeName().contains(Integer.class.getTypeName())) {
             return list;
         }
         return null;

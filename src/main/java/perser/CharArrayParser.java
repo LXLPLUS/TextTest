@@ -3,12 +3,14 @@ package perser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class CharArrayParser implements parserInterface{
+import java.lang.reflect.Type;
+
+public class CharArrayParser implements ParserInterface {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public Object parser(String str, Class<?> ruler) throws Exception {
+    public Object parser(String str, Class<?> ruler, Type type) throws Exception {
         if (ruler.isAssignableFrom(char.class)) {
             if (str.isBlank()) {
                 return ' ';

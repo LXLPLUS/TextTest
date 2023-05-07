@@ -43,7 +43,8 @@ public class MethodUtils {
     }
 
 
-    static public Object invoke(Object o, Method method, Object[] params) throws InvocationTargetException, IllegalAccessException, ParserFailedException {
+    static public Object invoke(Object o, Method method, Object[] params)
+            throws InvocationTargetException, IllegalAccessException, ParserFailedException {
         if (params.length == 0) {
             return method.invoke(o);
         }
@@ -65,7 +66,10 @@ public class MethodUtils {
         if (params.length == 6) {
             return method.invoke(o, params[0], params[1], params[2], params[3], params[4], params[5]);
         }
-        throw new ParserFailedException("参数大于6个,超过最大限制(真的有必要那么多参数嘛)");
+        if (params.length == 7) {
+            return method.invoke(o, params[0], params[1], params[2], params[3], params[4], params[5], params[6]);
+        }
+        throw new ParserFailedException("参数大于7个,超过最大限制(真的有必要那么多参数嘛)");
     }
 
 }

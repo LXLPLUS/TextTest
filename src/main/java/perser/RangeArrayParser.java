@@ -3,16 +3,17 @@ package perser;
 import lombok.extern.slf4j.Slf4j;
 import utils.StringBuilderUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class RangeArrayParser implements parserInterface{
+public class RangeArrayParser implements ParserInterface {
 
     @Override
-    public Object parser(String str, Class<?> ruler) throws Exception {
+    public Object parser(String str, Class<?> ruler, Type type) throws Exception {
         long[] allInteger = StringBuilderUtils.getAllInteger(str);
         long step = 1;
         long start = allInteger[0];
@@ -42,14 +43,29 @@ public class RangeArrayParser implements parserInterface{
         if (ruler.isAssignableFrom(int[].class)) {
             return ans.stream().mapToInt(Long::intValue).toArray();
         }
-
-        log.debug("青碧凝霜提示：Java有一个特性是类型插除，而编译的时候已经扔掉了，所以我无法通过反射来确定类型是List<Integer> 还是 List<Double>, " +
-                "所以无法支持除了List<Integer>以外的其他格式,会直接报错，祝好运！");
-        if (ruler.isAssignableFrom(ArrayList.class)) {
+        if (ruler.isAssignableFrom(double[].class)) {
+            return ans.stream().mapToDouble(Long::doubleValue).toArray();
+        }
+        if (ruler.isAssignableFrom(ArrayList.class) && type.getTypeName().contains(Integer.class.getTypeName())) {
             return ans.stream().mapToInt(Long::intValue).boxed().collect(Collectors.toCollection(ArrayList::new));
         }
-        if (ruler.isAssignableFrom(LinkedList.class)) {
+        if (ruler.isAssignableFrom(ArrayList.class) && type.getTypeName().contains(Long.class.getTypeName())) {
+            return ans;
+        }
+        if (ruler.isAssignableFrom(ArrayList.class) && type.getTypeName().contains(Double.class.getTypeName())) {
+            return ans.stream().mapToDouble(Double::valueOf)
+                    .boxed().collect(Collectors.toCollection(ArrayList::new));
+        }
+
+        if (ruler.isAssignableFrom(LinkedList.class) && type.getTypeName().contains(Integer.class.getTypeName())) {
             return ans.stream().mapToInt(Long::intValue).boxed().collect(Collectors.toCollection(LinkedList::new));
+        }
+        if (ruler.isAssignableFrom(LinkedList.class) && type.getTypeName().contains(Long.class.getTypeName())) {
+            return new LinkedList<>(ans);
+        }
+        if (ruler.isAssignableFrom(LinkedList.class) && type.getTypeName().contains(Double.class.getTypeName())) {
+            return ans.stream().mapToDouble(Double::valueOf)
+                    .boxed().collect(Collectors.toCollection(LinkedList::new));
         }
         return null;
     }
