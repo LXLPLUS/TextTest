@@ -43,4 +43,10 @@ public class StringBuilderUtils {
         ArrayUtils.removeAllOccurences(sArray, "");
         return sArray;
     }
+
+    public static boolean StartsWithIgnoreCase(String str, String startStr) {
+        str = str.toLowerCase();
+        startStr = startStr.toLowerCase();
+        return str.startsWith(startStr);
+    }
 }

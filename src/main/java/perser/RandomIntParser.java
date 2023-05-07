@@ -1,5 +1,6 @@
 package perser;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import utils.StringBuilderUtils;
 
@@ -12,6 +13,8 @@ import java.util.Random;
 public class RandomIntParser implements ParserInterface {
 
     Random r = new Random();
+    ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public Object parser(String str, Class<?> ruler, Type type) throws Exception {
         long[] allInteger = StringBuilderUtils.getAllInteger(str);
@@ -29,12 +32,6 @@ public class RandomIntParser implements ParserInterface {
         for (int i = 0; i < Math.min(5e5, nums); i++) {
             list.add(r.nextInt((int)(right - left)) + (int) left);
         }
-        if (ruler.isAssignableFrom(int[].class)) {
-            return list.stream().mapToInt(x -> x).toArray();
-        }
-        if (ruler.isAssignableFrom(ArrayList.class) && type.getTypeName().contains(Integer.class.getTypeName())) {
-            return list;
-        }
-        return null;
+        return objectMapper.writeValueAsString(list);
     }
 }

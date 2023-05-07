@@ -1,13 +1,14 @@
 package perser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.JsonMapper;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.reflect.Type;
 
 public class CharArrayParser implements ParserInterface {
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper = JsonMapper.mapper;
 
     @Override
     public Object parser(String str, Class<?> ruler, Type type) throws Exception {

@@ -14,7 +14,7 @@ public class Solution {
         return (b.get(0) + c[0] + d.val + e.val + f[0].charAt(0));
     }
 
-    @SourceParam(value = "RandomInt(100, 1, 100)")
+    @SourceParam(value = "[1, 3, 4]")
     @SourceParam(value = "Range(1, 100, 2)")
     @SourceParam(value = "Range(1, 100, 2)")
     @SourceParam(value = "[1]")
@@ -24,7 +24,7 @@ public class Solution {
         return (b.get(0) + c[0] + d.val + e[0] + f[0].charAt(0));
     }
 
-    @SourceParam(value = "RandomInt(100, 1, 100)")
+    @SourceParam(value = "RandomInt(20, 1, 13)")
     @SourceParam(value = "[1, 2]")
     @SourceParam(value = "[1, 5, 5]")
     @SourceParam(value = "[1]")
@@ -32,6 +32,11 @@ public class Solution {
     @SourceParam(value = "UUID")
     public String run03(int[] a, List<Long> b, int[] c, ListNode d, char[] e, String f) {
         return f + (b.get(0) + c[0] + d.val + e[0]);
+    }
+
+    @SourceParam(value = "NowTime(yyyy-MM-dd)")
+    public String run04(String str1) {
+        return str1;
     }
 
 
