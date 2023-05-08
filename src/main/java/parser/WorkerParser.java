@@ -37,7 +37,7 @@ public class WorkerParser implements ParserInterface {
         str = StringBuilderUtils.toHalfCharacter(str);
         // 优先函数定义，不然的话其他格式根本无法识别
 
-        if (!str.startsWith("[") && !str.startsWith("\"") && funcParser.checkMethodExist(str)) {
+        if (!str.isBlank() && !str.startsWith("[") && !str.startsWith("\"") && funcParser.checkMethodExist(str)) {
             str = (String) funcParser.parser(str, ruler, type);
         }
         // 无格式字符串的解析工具

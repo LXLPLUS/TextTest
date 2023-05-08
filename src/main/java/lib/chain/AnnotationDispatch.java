@@ -28,7 +28,7 @@ public class AnnotationDispatch {
         Method[] methods = MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation);
 
         for (Method method : methods) {
-
+            method.setAccessible(true);
             List<String> stringList = new ArrayList<>();
             if (method.getAnnotation(startAnnotation) != null) {
                 stringList.add(method.getAnnotation(startAnnotation).value());
@@ -53,10 +53,15 @@ public class AnnotationDispatch {
         log.debug("通过注解成功采集到 {} 个任务", taskList.size());
     }
 
-    public void startAllTask() throws Exception {
+    public void startAllTask() {
         taskList.sort(Comparator.comparing(o -> o.getMethod().getName()));
         for (AnnotationTask annotationTask : taskList) {
-            new TaskStarter(annotationTask);
+            try {
+                new TaskStarter(annotationTask);
+            } catch (Exception e) {
+                log.warn("任务失败, 失败信息 {}", e.getMessage());
+            }
+
         }
     }
 }

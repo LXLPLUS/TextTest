@@ -34,9 +34,9 @@ public class TaskStarter {
     public TaskStarter(AnnotationTask annotationTask) throws Exception {
         Method method = annotationTask.getMethod();
         log.info("------------------------------------------------------------------------------");
-        log.info("  任务: {}   任务来源: {}          方法:  {}",
+        log.info("  任务来源: {}   任务: {}          方法:  {}",
                 annotationTask.getTaskFrom(),
-                annotationTask.getObject(),
+                annotationTask.getC().getName(),
                 method.getName());
         log.info("------------------------------------------------------------------------------");
 

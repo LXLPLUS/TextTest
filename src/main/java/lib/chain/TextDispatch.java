@@ -45,6 +45,7 @@ public class TextDispatch {
         // 遍历方法获取所有注解
         Method[] methods = c.getMethods();
         for (Method method : methods) {
+            method.setAccessible(true);
             TextTest textTest = method.getAnnotation(textTestAnnotation);
             if (textTest != null) {
                 methodAnnotationPairList.add(Pair.of(method, textTest));
@@ -79,14 +80,13 @@ public class TextDispatch {
         log.debug("通过文件采集完成！一共 {} 个任务", taskList.size());
     }
 
-    public void startAllTask() throws Exception {
+    public void startAllTask(){
         for (AnnotationTask annotationTask : taskList) {
             taskList.sort(Comparator.comparing(o -> o.getMethod().getName()));
             try {
                 new TaskStarter(annotationTask);
             } catch (Exception e) {
                 log.error("任务失败, 失败信息 {} ", e.getMessage());
-                throw e;
             }
         }
     }
