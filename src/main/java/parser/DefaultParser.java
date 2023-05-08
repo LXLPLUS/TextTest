@@ -2,14 +2,14 @@ package parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import model.JsonMapper;
+import utils.JsonMapperUtils;
 
 import java.lang.reflect.Type;
 
 @Slf4j
 public class DefaultParser implements ParserInterface {
 
-    static ObjectMapper objectMapper = JsonMapper.mapper;
+    static ObjectMapper objectMapper = JsonMapperUtils.mapper;
 
     @Override
     public Object parser(String str, Class<?> ruler, Type type) throws Exception {

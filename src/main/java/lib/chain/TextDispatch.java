@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
 import org.apache.commons.lang3.tuple.Pair;
 import utils.FilesWalkUtils;
-import utils.Timer;
+import model.Timer;
 
 import java.io.File;
 import java.io.IOException;

@@ -15,11 +15,10 @@ import java.util.List;
 @Slf4j
 public class AnnotationDispatch {
 
-    List<AnnotationTask> taskList = new ArrayList<>();
+    public List<AnnotationTask> taskList = new ArrayList<>();
 
     public AnnotationDispatch(Class<?> c, Class<? extends SourceParam> singleAnnotation,
                               Class <? extends SourceParams> collectAnnotation) throws AnnotationException {
-        new AnnotationPreCheck(c, singleAnnotation, collectAnnotation);
         getTask(c, singleAnnotation, collectAnnotation);
     }
 
@@ -61,7 +60,6 @@ public class AnnotationDispatch {
             } catch (Exception e) {
                 log.warn("任务失败, 失败信息 {}", e.getMessage());
             }
-
         }
     }
 }

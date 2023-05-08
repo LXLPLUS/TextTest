@@ -5,7 +5,7 @@ import model.AnnotationTask;
 import parser.WorkerParser;
 import utils.MethodUtils;
 import utils.PrintAllType;
-import utils.Timer;
+import model.Timer;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -50,12 +50,12 @@ public class TaskStarter {
             List<String> dataAndType = PrintAllType.getString(objectList[i]);
             log.info("对第 {} 个参数注入结束, 注入类型为 {} ,值为 {}", i + 1, dataAndType.get(1), dataAndType.get(0));
         }
-        timer.time();
+        timer.flushStartTime();
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);
-        timer.time();
+        timer.flushFinishTIme();
         List<String> dataAndType = PrintAllType.getString(invoke);
         log.info("获取结果, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
-        long timer = TextDispatch.timer.getTimer();
+        long timer = TextDispatch.timer.getStartToFinishMillis();
         if (timer == 0) {
             log.info("运算时间小于1毫秒");
         }

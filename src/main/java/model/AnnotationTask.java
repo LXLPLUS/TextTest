@@ -2,6 +2,7 @@ package model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import utils.FilesWalkUtils;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 
 @Getter
 @Setter
+@Slf4j
 public class AnnotationTask {
     Object object;
     Class<?> c;
@@ -46,7 +48,13 @@ public class AnnotationTask {
      */
     public Object getObject()
             throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        object = c.getDeclaredConstructor().newInstance();
+        try {
+            object = c.getDeclaredConstructor().newInstance();
+        } catch (IllegalAccessException e) {
+            log.warn("创建任务失败，请检查执行的class是否为Public , 报错：{}", e.getMessage());
+            throw e;
+        }
+
         return object;
     }
 }

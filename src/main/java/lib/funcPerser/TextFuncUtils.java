@@ -1,20 +1,17 @@
 package lib.funcPerser;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lib.exception.ParserFailedException;
-import model.JsonMapper;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import utils.JsonMapperUtils;
 
 import java.util.*;
 
 public class TextFuncUtils {
 
-    ObjectMapper objectMapper = JsonMapper.mapper;
     static Random random = new Random();
 
     public String Range(double start, double end, double step)
-            throws ParserFailedException, JsonProcessingException {
+            throws ParserFailedException {
         int count = 0;
 
         List<Double> list = new ArrayList<>();
@@ -37,47 +34,47 @@ public class TextFuncUtils {
                 }
             }
         }
-        return objectMapper.writeValueAsString(list);
+        return JsonMapperUtils.writeValueAsString(list);
     }
 
-    public String UUID() throws JsonProcessingException {
+    public String UUID() {
         String uuid = java.util.UUID.randomUUID().toString();
-        return objectMapper.writeValueAsString(uuid);
+        return JsonMapperUtils.writeValueAsString(uuid);
     }
 
-    public String randomInt(double num, double start, double end) throws JsonProcessingException {
+    public String randomInt(double num, double start, double end) {
         List<Object> objects = new ArrayList<>((int) num);
         for(int i = 0; i < (int) num; i++) {
             objects.add(start + random.nextInt((int) end - (int) start));
         }
-        return objectMapper.writeValueAsString(objects);
+        return JsonMapperUtils.writeValueAsString(objects);
     }
 
-    public String randomInt(double num) throws JsonProcessingException {
+    public String randomInt(double num) {
         List<Object> objects = new ArrayList<>();
         objects.add(random.nextInt());
-        return objectMapper.writeValueAsString(objects);
+        return JsonMapperUtils.writeValueAsString(objects);
     }
 
-    public String nowTime(String str) throws JsonProcessingException {
+    public String nowTime(String str) {
         String format = DateFormatUtils.format(new Date(), str);
-        return objectMapper.writeValueAsString(format);
+        return JsonMapperUtils.writeValueAsString(format);
     }
 
-    public String nowTime() throws JsonProcessingException {
+    public String nowTime() {
         String format = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
-        return objectMapper.writeValueAsString(format);
+        return JsonMapperUtils.writeValueAsString(format);
     }
 
-    public String fillString(double count, String str) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(Collections.nCopies((int) count, str));
+    public String fillString(double count, String str) {
+        return JsonMapperUtils.writeValueAsString(Collections.nCopies((int) count, str));
     }
 
-    public String FillNumber(double count, double num) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(Collections.nCopies((int) count, num));
+    public String FillNumber(double count, double num) {
+        return JsonMapperUtils.writeValueAsString(Collections.nCopies((int) count, num));
     }
 
-    public String RandomString(double length) throws JsonProcessingException {
+    public String RandomString(double length) {
         String stringList =
                 "的一是了我不人在他有这个上们来到时大地为子中你说生国年着就那和" +
                 "要她出也得里后自以会家可下而过天去能对小多然于心学么之都好看起发当没成只如事" +
@@ -109,17 +106,17 @@ public class TextFuncUtils {
         for (int i = 0; i < (int) length; i++) {
             sb.append(stringList.charAt(random.nextInt(stringList.length() - 1)));
         }
-        return objectMapper.writeValueAsString(sb.toString());
+        return JsonMapperUtils.writeValueAsString(sb.toString());
     }
 
-    public String RandomChar(double length) throws JsonProcessingException {
+    public String RandomChar(double length) {
         String stringList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < (int) length; i++) {
             sb.append(stringList.charAt(random.nextInt(stringList.length() - 1)));
         }
-        return objectMapper.writeValueAsString(sb.toString());
+        return JsonMapperUtils.writeValueAsString(sb.toString());
     }
 
 }

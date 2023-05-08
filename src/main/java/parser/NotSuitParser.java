@@ -1,7 +1,7 @@
 package parser;
 
 import lombok.extern.slf4j.Slf4j;
-import model.JsonMapper;
+import utils.JsonMapperUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -32,6 +32,6 @@ public class NotSuitParser implements ParserInterface {
                 list.add(row);
             }
         }
-        return JsonMapper.mapper.writeValueAsString(list);
+        return JsonMapperUtils.mapper.writeValueAsString(list);
     }
 }
