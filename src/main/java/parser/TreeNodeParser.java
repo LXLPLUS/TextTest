@@ -1,4 +1,4 @@
-package perser;
+package parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lib.javaCollections.TreeNode;

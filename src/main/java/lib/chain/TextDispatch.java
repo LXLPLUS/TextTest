@@ -5,7 +5,6 @@ import lib.interfaces.TextTest;
 import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
 import org.apache.commons.lang3.tuple.Pair;
-import perser.WorkerParser;
 import utils.FilesWalkUtils;
 import utils.Timer;
 
@@ -14,13 +13,13 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
 public class TextDispatch {
 
     List<AnnotationTask> taskList = new ArrayList<>();
-    static WorkerParser workerParser = new WorkerParser();
     static Timer timer = new Timer();
 
     public TextDispatch(Class<?> c, Class<? extends TextTest> textTestAnnotation,
@@ -76,12 +75,13 @@ public class TextDispatch {
             }
         }
         // 可达性日志，代表程序成功运行到这个阶段没有报错
-        // 所以发现日志不报错是很正常的
+        // 所以发现日志不报错是很正常的,但内容是重复的
         log.debug("通过文件采集完成！一共 {} 个任务", taskList.size());
     }
 
     public void startAllTask() throws Exception {
         for (AnnotationTask annotationTask : taskList) {
+            taskList.sort(Comparator.comparing(o -> o.getMethod().getName()));
             try {
                 new TaskStarter(annotationTask);
             } catch (Exception e) {

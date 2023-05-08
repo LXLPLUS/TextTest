@@ -25,7 +25,7 @@ public class Solution {
     }
 
     @SourceParam(value = "RandomInt(20, 1, 13)")
-    @SourceParam(value = "[1, 2]")
+    @SourceParam(value = "1, 2")
     @SourceParam(value = "[1, 5, 5]")
     @SourceParam(value = "[1]")
     @SourceParam(value = "[\"b\"]")
@@ -35,9 +35,21 @@ public class Solution {
     }
 
     @SourceParam(value = "NowTime(yyyy-MM-dd)")
-    public String run04(String str1) {
+    @SourceParam(value = "a b c")
+    @SourceParam(value = "a b c")
+    @SourceParam(value = "abcd")
+    public String run04(String str1, String[] b, List<String> c, char[] d) {
         return str1;
     }
 
+    @SourceParam
+    public String run05() {
+        return "hello world";
+    }
 
+    @SourceParam(value = "RandomString(3)")
+    @SourceParam(value = "RandomChar(10)")
+    public String run06(String name, String id) {
+        return name + id;
+    }
 }

@@ -1,4 +1,4 @@
-package perser;
+package parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class DefaultParser implements ParserInterface {
 
             o = objectMapper.readValue(str, ruler);
         } catch (Exception e) {
-            log.debug("jackJson解析失败,报错 {}", e.getMessage());
+            log.debug("jackJson解析失败, 解析的数据为 {},报错 {}", str, e.getMessage());
         }
         return o;
     }

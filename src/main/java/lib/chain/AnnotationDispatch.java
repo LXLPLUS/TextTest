@@ -7,9 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
 import utils.MethodUtils;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -17,10 +17,10 @@ public class AnnotationDispatch {
 
     List<AnnotationTask> taskList = new ArrayList<>();
 
-    public AnnotationDispatch(Class<?> c, Class<? extends SourceParam> startAnnotation,
-                              Class <? extends SourceParams> collectAnnotation) throws IOException, AnnotationException {
-        new AnnotationPreCheck(c, startAnnotation, collectAnnotation);
-        getTask(c, startAnnotation, collectAnnotation);
+    public AnnotationDispatch(Class<?> c, Class<? extends SourceParam> singleAnnotation,
+                              Class <? extends SourceParams> collectAnnotation) throws AnnotationException {
+        new AnnotationPreCheck(c, singleAnnotation, collectAnnotation);
+        getTask(c, singleAnnotation, collectAnnotation);
     }
 
     void getTask(Class<?> c, Class<? extends SourceParam> startAnnotation,
@@ -28,6 +28,7 @@ public class AnnotationDispatch {
         Method[] methods = MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation);
 
         for (Method method : methods) {
+
             List<String> stringList = new ArrayList<>();
             if (method.getAnnotation(startAnnotation) != null) {
                 stringList.add(method.getAnnotation(startAnnotation).value());
@@ -40,6 +41,11 @@ public class AnnotationDispatch {
             if (stringList.isEmpty()) {
                 continue;
             }
+
+            // 当启动无参方式的时候不需要注解信息，只是当成启动工具
+            if (method.getParameterCount() == 0) {
+                stringList.clear();
+            }
             AnnotationTask annotationTask = new AnnotationTask(c, stringList.toArray(String[]::new), method);
             annotationTask.setTaskFrom("注解SourceFrom");
             taskList.add(annotationTask);
@@ -48,6 +54,7 @@ public class AnnotationDispatch {
     }
 
     public void startAllTask() throws Exception {
+        taskList.sort(Comparator.comparing(o -> o.getMethod().getName()));
         for (AnnotationTask annotationTask : taskList) {
             new TaskStarter(annotationTask);
         }

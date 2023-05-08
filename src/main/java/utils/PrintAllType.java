@@ -44,16 +44,4 @@ public class PrintAllType {
         }
         return List.of(o.toString(), o.getClass().toString());
     }
-
-    static public void print(Object o) {
-        List<String> list = getString(o);
-        String message = list.get(0);
-        String type = list.get(1);
-        System.out.println("类型: " + type + ", 数据: " + message);
-    }
-
-    static public String getInfo(Object o) {
-        return getString(o).get(0);
-    }
-
 }

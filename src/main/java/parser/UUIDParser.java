@@ -1,4 +1,4 @@
-package perser;
+package parser;
 
 import model.JsonMapper;
 

@@ -2,7 +2,7 @@ package lib.chain;
 
 import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
-import perser.WorkerParser;
+import parser.WorkerParser;
 import utils.MethodUtils;
 import utils.PrintAllType;
 import utils.Timer;
@@ -17,17 +17,28 @@ import java.util.List;
 // 公用一个解析器
 @Slf4j
 public class TaskStarter {
-    static WorkerParser workerParser = new WorkerParser();
+
+    static WorkerParser workerParser;
+
+    static {
+        try {
+            workerParser = new WorkerParser();
+        } catch (Exception e) {
+            log.warn("定义函数工具异常，函数解析失败！");
+            System.exit(-1);
+        }
+    }
+
     Timer timer = new Timer();
+
     public TaskStarter(AnnotationTask annotationTask) throws Exception {
         Method method = annotationTask.getMethod();
-        log.info("---------------------------===============------------------------------------");
-        log.info("---------------------------||task_start ||------------------------------------");
-        log.info("---------------------------===============------------------------------------");
-        log.info("开始任务, 任务来源 {}, 方法为 {} 的 {}",
+        log.info("------------------------------------------------------------------------------");
+        log.info("  任务: {}   任务来源: {}          方法:  {}",
                 annotationTask.getTaskFrom(),
                 annotationTask.getObject(),
                 method.getName());
+        log.info("------------------------------------------------------------------------------");
 
         String[] jsonList = annotationTask.getJsonList();
         Class<?>[] typeArray = annotationTask.getTypeArray();
@@ -37,7 +48,7 @@ public class TaskStarter {
         for (int i = 0; i < jsonList.length; i++) {
             objectList[i] = workerParser.parser(jsonList[i], typeArray[i], realTypes[i]);
             List<String> dataAndType = PrintAllType.getString(objectList[i]);
-            log.info("成功注入, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
+            log.info("对第 {} 个参数注入结束, 注入类型为 {} ,值为 {}", i + 1, dataAndType.get(1), dataAndType.get(0));
         }
         timer.time();
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);

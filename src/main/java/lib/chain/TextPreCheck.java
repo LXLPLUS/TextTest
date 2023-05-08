@@ -24,11 +24,11 @@ public class TextPreCheck {
     List<Pair<Method, TextTest>> methodList = new ArrayList<>();
 
     public TextPreCheck(Class<?> c,
-                        Class<? extends Annotation> startAnnotation,
+                        Class<? extends Annotation> singleAnnotation,
                         Class <? extends TestCollect> collectAnnotation)
             throws AnnotationException, IOException, ParserFailedException {
         getPathList();
-        checkMainAnnotation(c, startAnnotation, collectAnnotation);
+        checkMainAnnotation(c, singleAnnotation, collectAnnotation);
         getPathFromAnnotation();
     }
 

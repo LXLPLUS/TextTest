@@ -11,24 +11,24 @@ import java.lang.reflect.Method;
 @Slf4j
 public class AnnotationPreCheck {
 
-    public AnnotationPreCheck(Class<?> c, Class<? extends SourceParam> startAnnotation,
+    public AnnotationPreCheck(Class<?> c, Class<? extends SourceParam> singleAnnotation,
                               Class <? extends SourceParams> collectAnnotation) throws AnnotationException {
-        methodCheck(c, startAnnotation, collectAnnotation);
+        methodCheck(c, singleAnnotation, collectAnnotation);
     }
 
-    public static boolean checkAnnotation(Class<?> c, Class<? extends SourceParam> startAnnotation,
+    public static boolean checkAnnotation(Class<?> c, Class<? extends SourceParam> singleAnnotation,
                                           Class <? extends SourceParams> collectAnnotation) {
-        return utils.MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation).length > 0;
+        return utils.MethodUtils.getMethodWithInterface(c, singleAnnotation, collectAnnotation).length > 0;
     }
 
-    void methodCheck(Class<?> c, Class<? extends SourceParam> startAnnotation,
+    void methodCheck(Class<?> c, Class<? extends SourceParam> sigleAnnotation,
                      Class <? extends SourceParams> collectAnnotation) throws AnnotationException {
-        Method[] methods = MethodUtils.getMethodWithInterface(c, startAnnotation, collectAnnotation);
+        Method[] methods = MethodUtils.getMethodWithInterface(c, sigleAnnotation, collectAnnotation);
 
         for (Method method : methods) {
-            SourceParam annotation = method.getAnnotation(startAnnotation);
+            SourceParam annotation = method.getAnnotation(sigleAnnotation);
             int parameterCount = method.getParameterCount();
-            if (annotation != null && parameterCount != 1) {
+            if (annotation != null && parameterCount > 1) {
                 log.warn("注解和函数实际执行的参数数量不符!");
                 throw new AnnotationException("注解和函数实际执行的参数数量不符!");
             }

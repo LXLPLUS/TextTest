@@ -1,4 +1,4 @@
-package perser;
+package parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.JsonMapper;
@@ -17,6 +17,9 @@ public class CharArrayParser implements ParserInterface {
                 return ' ';
             }
             return str.charAt(0);
+        }
+        if (!str.startsWith("[") && ruler.isAssignableFrom(char[].class)) {
+            return str.toCharArray();
         }
 
         if (ruler.isAssignableFrom(char[].class)) {

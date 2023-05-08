@@ -41,7 +41,8 @@ public class AnnotationTask {
     }
 
     /**
-     * 为了保证每次获取的都是最新的实例，不然就跟一个线程调用两次start方法一样不可预知
+     * 为了让每次获取的进程都是新的，保证线程安全
+     * @return 新建的线程
      */
     public Object getObject()
             throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
