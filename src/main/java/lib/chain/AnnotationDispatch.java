@@ -1,8 +1,8 @@
 package lib.chain;
 
 import lib.exception.AnnotationException;
-import lib.interfaces.SourceParam;
-import lib.interfaces.SourceParams;
+import lib.annotation.SourceParam;
+import lib.annotation.SourceParams;
 import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
 import utils.MethodUtils;

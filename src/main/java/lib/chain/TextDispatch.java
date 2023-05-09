@@ -1,12 +1,11 @@
 package lib.chain;
 
-import lib.interfaces.TestCollect;
-import lib.interfaces.TextTest;
+import lib.annotation.TestCollect;
+import lib.annotation.TextTest;
 import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
 import org.apache.commons.lang3.tuple.Pair;
 import utils.FilesWalkUtils;
-import model.Timer;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +19,6 @@ import java.util.List;
 public class TextDispatch {
 
     List<AnnotationTask> taskList = new ArrayList<>();
-    static Timer timer = new Timer();
 
     public TextDispatch(Class<?> c, Class<? extends TextTest> textTestAnnotation,
                         Class<? extends TestCollect> testCollectAnnotation)

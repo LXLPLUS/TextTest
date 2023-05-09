@@ -18,7 +18,7 @@ public class Timer {
     public void clear() {
         Arrays.fill(list, 0L);
     }
-    public long getStartToFinishMillis() throws UndefinedException {
+    public long spendMillis() throws UndefinedException {
         if (list[0] == 0) {
             throw new UndefinedException("开始时间未定义！");
         }

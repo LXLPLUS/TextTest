@@ -42,7 +42,10 @@ public class TextFuncUtils {
         return JsonMapperUtils.writeValueAsString(uuid);
     }
 
-    public String randomInt(double num, double start, double end) {
+    public String randomInt(double num, double start, double end) throws ParserFailedException {
+        if (num > 1e6) {
+            throw new ParserFailedException("数据超过1e6数量");
+        }
         List<Object> objects = new ArrayList<>((int) num);
         for(int i = 0; i < (int) num; i++) {
             objects.add(start + random.nextInt((int) end - (int) start));

@@ -13,8 +13,8 @@
 ```java
 package examples;
 
-import lib.interfaces.SourceParam;
-import lib.interfaces.TextTest;
+import lib.annotation.SourceParam;
+import lib.annotation.TextTest;
 import lib.javaCollections.ListNode;
 import lib.javaCollections.TreeNode;
 

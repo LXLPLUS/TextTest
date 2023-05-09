@@ -48,6 +48,10 @@ public class WorkerParser implements ParserInterface {
             str = (String) quickParser.parser(str, ruler, type);
         }
 
+        if (!str.startsWith("\"") && ruler.isAssignableFrom(String.class)) {
+            return str;
+        }
+
         // char是按照字符格式写入的，按照字符进行解析
         if (ruler.isAssignableFrom(char.class)) {
             return charArrayParser.parser(str, char.class, type);

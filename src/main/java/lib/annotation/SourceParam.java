@@ -1,8 +1,8 @@
-package lib.interfaces;
+package lib.annotation;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(SourceParams.class)

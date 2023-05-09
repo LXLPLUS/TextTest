@@ -55,12 +55,12 @@ public class TaskStarter {
         timer.flushFinishTIme();
         List<String> dataAndType = PrintAllType.getString(invoke);
         log.info("获取结果, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
-        long timer = TextDispatch.timer.getStartToFinishMillis();
-        if (timer == 0) {
+        long during = timer.spendMillis();
+        if (during == 0) {
             log.info("运算时间小于1毫秒");
         }
         else {
-            log.info("该方法运行了 {} 毫秒", timer);
+            log.info("该方法运行了 {} 毫秒", during);
         }
     }
 }

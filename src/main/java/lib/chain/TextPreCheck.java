@@ -2,8 +2,8 @@ package lib.chain;
 
 import lib.exception.AnnotationException;
 import lib.exception.ParserFailedException;
-import lib.interfaces.TestCollect;
-import lib.interfaces.TextTest;
+import lib.annotation.TestCollect;
+import lib.annotation.TextTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.commons.lang3.tuple.Pair;

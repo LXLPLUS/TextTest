@@ -21,9 +21,7 @@ public class FilesWalkUtils {
 
     public static List<String> getStringListWithOutBlackOrNote(Path path) throws IOException {
         List<String> stringList = Files.readAllLines(path);
-        stringList.removeIf(String::isBlank);
-        stringList.removeIf(x -> x.startsWith("#"));
-        stringList.removeIf(x -> x.startsWith("//"));
+        stringList.removeIf(x -> x == null || x.startsWith("#") || x.startsWith("//") || x.isBlank());
         return stringList;
     }
 

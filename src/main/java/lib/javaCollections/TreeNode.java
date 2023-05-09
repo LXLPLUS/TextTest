@@ -1,8 +1,9 @@
 package lib.javaCollections;
 
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Deque;
 import java.util.List;
 
 public class TreeNode {
@@ -19,40 +20,59 @@ public class TreeNode {
     }
 
 
+    /**
+     * 层序遍历
+     * @param list 输入的集合
+     * @return 前序遍历生成的tree
+     */
     static public TreeNode TreeNodeCreate(List<Integer> list) {
-        return TreeNodeCreate(list, 0, list.size() - 1, 1);
-    }
-
-    static TreeNode TreeNodeCreate(List<Integer> list, int left, int right, int step) {
-        if (list.isEmpty() || left > right || left >= list.size() || list.get(left) == null) {
+        if (list.isEmpty()) {
             return null;
         }
-        TreeNode treeNode = new TreeNode(list.get(left));
-        treeNode.left = TreeNodeCreate(list, left + 1, left + step, step << 1);
-        treeNode.right = TreeNodeCreate(list, left + step + 1, right, step << 1);
-        return treeNode;
+        TreeNode head = new TreeNode(list.get(0));
+        int index = 0;
+        Deque<TreeNode> deque = new ArrayDeque<>(List.of(head));
+        while (!deque.isEmpty() && index < list.size()) {
+            TreeNode treeNode = deque.removeFirst();
+            TreeNode left = null;
+            TreeNode right = null;
+            if (index + 1 < list.size() && list.get(index + 1) != null) {
+                left = new TreeNode(list.get(index + 1));
+                deque.addLast(left);
+            }
+            if (index + 2 < list.size() && list.get(index + 2) != null) {
+                right = new TreeNode(list.get(index + 2));
+                deque.addLast(right);
+            }
+            treeNode.left = left;
+            treeNode.right = right;
+            index += 2;
+        }
+        return head;
     }
 
-    static public List<Integer> TreeNodeToList(TreeNode root) {
+    static public List<Integer> treeNodeToList(TreeNode root) {
         List<Integer> integerList = new ArrayList<>();
-        TreeNodeDFS(root, integerList, 0, 1);
+        if (root == null) {
+            return integerList;
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>(List.of(root));
+        while (!deque.isEmpty()) {
+            TreeNode treeNode = deque.removeFirst();
+            integerList.add(treeNode.left != null ? treeNode.left.val : null);
+            integerList.add(treeNode.right != null ? treeNode.right.val : null);
+            if (treeNode.left != null) {
+                deque.add(treeNode.left);
+            }
+            if (treeNode.right != null) {
+                deque.add(treeNode.right);
+            }
+        }
         return integerList;
-    }
-
-    static void TreeNodeDFS(TreeNode node, List<Integer> list, int startIndex, int step) {
-        if (node == null) {
-            return;
-        }
-        while (startIndex >= list.size()) {
-            list.add(null);
-        }
-        list.set(startIndex, node.val);
-        TreeNodeDFS(node.left, list, startIndex + 1, step << 1);
-        TreeNodeDFS(node.right, list, startIndex + step + 1, step << 1);
     }
 
     @Override
     public String toString() {
-        return TreeNodeToList(this).toString();
+        return treeNodeToList(this).toString();
     }
 }
