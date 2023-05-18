@@ -33,7 +33,6 @@ public class WorkerParser implements ParserInterface {
     @Override
     public Object parser(String str, Class<?> ruler, Type type) throws Exception {
 
-
         str = StringBuilderUtils.toHalfCharacter(str);
         // 优先函数定义，不然的话其他格式根本无法识别
 

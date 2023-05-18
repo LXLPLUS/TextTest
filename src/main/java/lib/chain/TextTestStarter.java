@@ -56,7 +56,8 @@ public class TextTestStarter {
             try {
                 new TaskStarter(annotationTask);
             } catch (Exception e) {
-                log.warn("任务失败, 失败原因: {}", e.getMessage());
+                log.warn("任务失败!");
+                e.printStackTrace();
             }
         }
     }
@@ -80,7 +81,6 @@ public class TextTestStarter {
             taskList.addAll(classTaskDispatch.taskList);
             startAllTask(classTaskDispatch.taskList);
         }
-        startAllTask(taskList);
         if (taskList.isEmpty()) {
             log.warn("没有可执行的任务！请加入@TextTest或者@Solution注解");
         }

@@ -14,6 +14,9 @@ public class StringBuilderUtils {
      * @return 转化后的字符
      */
     public static String toHalfCharacter(String input) {
+        if (input == null) {
+            return null;
+        }
         char[] c = input.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if (c[i] == 12288) {

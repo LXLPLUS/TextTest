@@ -15,7 +15,6 @@ public class DefaultParser implements ParserInterface {
     public Object parser(String str, Class<?> ruler, Type type) throws Exception {
         Object o = null;
         try {
-
             o = objectMapper.readValue(str, ruler);
         } catch (Exception e) {
             log.debug("jackJson解析失败, 解析的数据为 {},报错 {}", str, e.getMessage());

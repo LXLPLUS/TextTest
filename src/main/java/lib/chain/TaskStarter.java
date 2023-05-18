@@ -2,14 +2,13 @@ package lib.chain;
 
 import lombok.extern.slf4j.Slf4j;
 import model.AnnotationTask;
-import parser.WorkerParser;
-import utils.MethodUtils;
-import utils.PrintAllType;
 import model.Timer;
+import parser.WorkerParser;
+import utils.JsonMapperUtils;
+import utils.MethodUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.List;
 
 // 每个任务的启动器
 // 带一个简单的计时器，计算代码的运行时间
@@ -47,14 +46,20 @@ public class TaskStarter {
 
         for (int i = 0; i < jsonList.length; i++) {
             objectList[i] = workerParser.parser(jsonList[i], typeArray[i], realTypes[i]);
-            List<String> dataAndType = PrintAllType.getString(objectList[i]);
-            log.info("对第 {} 个参数注入结束, 注入类型为 {} ,值为 {}", i + 1, dataAndType.get(1), dataAndType.get(0));
+            log.info("对第 {} 个参数注入结束, 注入类型为 {} ,值为 {}", i + 1,
+                    realTypes[i].getTypeName(), JsonMapperUtils.mapper.writeValueAsString(objectList[i]));
         }
         timer.flushStartTime();
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);
         timer.flushFinishTIme();
-        List<String> dataAndType = PrintAllType.getString(invoke);
-        log.info("获取结果, 类型为 {} ,值为 {}", dataAndType.get(1), dataAndType.get(0));
+        if (invoke == null) {
+            log.info("获取结果，返回数据为null");
+        }
+        else {
+            log.info("获取结果, 类型为 {} ,值为 {}", invoke.getClass().getTypeName(),
+                    JsonMapperUtils.mapper.writeValueAsString(invoke));
+        }
+
         long during = timer.spendMillis();
         if (during == 0) {
             log.info("运算时间小于1毫秒");
