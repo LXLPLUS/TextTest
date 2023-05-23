@@ -1,18 +1,21 @@
 package lib.javaCollections;
 
-import javax.swing.tree.TreeNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import mapper.ListNodeDeserializer;
+import mapper.ListNodeSerializer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * 懒得进行反序列化了，都说不安全了，不如手写一个简单的生成规则，然后在parser的时候进行拦截
- */
+@JsonSerialize(using = ListNodeSerializer.class)
+@JsonDeserialize(using = ListNodeDeserializer.class)
 public class ListNode{
     public int val = 0;
     public ListNode next;
 
-    ListNode() {};
+    ListNode() {}
     ListNode(int val) {this.val = val;}
     ListNode(int val, ListNode next) {
         this.val = val;

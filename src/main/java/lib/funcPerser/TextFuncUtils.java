@@ -2,7 +2,7 @@ package lib.funcPerser;
 
 import lib.exception.ParserFailedException;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import utils.JsonMapperUtils;
+import mapper.JsonMapperUtils;
 
 import java.util.*;
 

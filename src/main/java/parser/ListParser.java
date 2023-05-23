@@ -2,7 +2,7 @@ package parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import utils.JsonMapperUtils;
+import mapper.JsonMapperUtils;
 import utils.TypeUtils;
 
 import java.lang.reflect.Type;

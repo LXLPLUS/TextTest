@@ -1,11 +1,18 @@
 package lib.javaCollections;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import mapper.TreeNodeDeserializer;
+import mapper.TreeNodeSerializer;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+@JsonSerialize(using = TreeNodeSerializer.class)
+@JsonDeserialize(using = TreeNodeDeserializer.class)
 public class TreeNode {
     public int val;
     public TreeNode left;
@@ -56,6 +63,7 @@ public class TreeNode {
         if (root == null) {
             return integerList;
         }
+        integerList.add(root.val);
         Deque<TreeNode> deque = new ArrayDeque<>(List.of(root));
         while (!deque.isEmpty()) {
             TreeNode treeNode = deque.removeFirst();
@@ -67,6 +75,9 @@ public class TreeNode {
             if (treeNode.right != null) {
                 deque.add(treeNode.right);
             }
+        }
+        while (integerList.get(integerList.size() - 1) == null) {
+            integerList.remove(integerList.size() - 1);
         }
         return integerList;
     }

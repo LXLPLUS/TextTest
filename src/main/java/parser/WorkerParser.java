@@ -4,8 +4,6 @@ package parser;
   @author 青碧凝霜
  * 2023 2023/5/8 3:01 created
  */
-import lib.javaCollections.ListNode;
-import lib.javaCollections.TreeNode;
 import utils.StringBuilderUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -18,8 +16,6 @@ import java.util.ArrayList;
  */
 public class WorkerParser implements ParserInterface {
 
-    static final ListNodeParser listNodeParser = new ListNodeParser();
-    static final TreeNodeParser treeNodeParser = new TreeNodeParser();
     static final NotSuitParser quickParser = new NotSuitParser();
     static final CharArrayParser charArrayParser = new CharArrayParser();
     static final ListParser listParser = new ListParser();
@@ -60,16 +56,6 @@ public class WorkerParser implements ParserInterface {
         }
         if (ruler.isAssignableFrom(char[][].class)) {
             return charArrayParser.parser(str, char[][].class, type);
-        }
-
-
-        // 树的序列工具
-        if (ruler.isAssignableFrom(TreeNode.class)) {
-            return treeNodeParser.parser(str, TreeNode.class, type);
-        }
-        // 链表的序列化工具
-        if (ruler.isAssignableFrom(ListNode.class)) {
-            return listNodeParser.parser(str, ListNode.class, type);
         }
 
         // list的序列化工具

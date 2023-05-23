@@ -1,7 +1,7 @@
 package parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import utils.JsonMapperUtils;
+import mapper.JsonMapperUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.reflect.Type;

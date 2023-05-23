@@ -1,7 +1,7 @@
 package parser;
 
 import lombok.extern.slf4j.Slf4j;
-import utils.JsonMapperUtils;
+import mapper.JsonMapperUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;

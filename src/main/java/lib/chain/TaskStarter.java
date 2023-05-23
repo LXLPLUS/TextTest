@@ -1,10 +1,10 @@
 package lib.chain;
 
 import lombok.extern.slf4j.Slf4j;
+import mapper.JsonMapperUtils;
 import model.AnnotationTask;
 import model.Timer;
 import parser.WorkerParser;
-import utils.JsonMapperUtils;
 import utils.MethodUtils;
 
 import java.lang.reflect.Method;
@@ -47,7 +47,8 @@ public class TaskStarter {
         for (int i = 0; i < jsonList.length; i++) {
             objectList[i] = workerParser.parser(jsonList[i], typeArray[i], realTypes[i]);
             log.info("对第 {} 个参数注入结束, 注入类型为 {} ,值为 {}", i + 1,
-                    realTypes[i].getTypeName(), JsonMapperUtils.mapper.writeValueAsString(objectList[i]));
+                    realTypes[i].getTypeName(),
+                    JsonMapperUtils.mapper.writeValueAsString(objectList[i]));
         }
         timer.flushStartTime();
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);
@@ -56,7 +57,8 @@ public class TaskStarter {
             log.info("获取结果，返回数据为null");
         }
         else {
-            log.info("获取结果, 类型为 {} ,值为 {}", invoke.getClass().getTypeName(),
+            log.info("获取结果, 类型为 {} ,值为 {}",
+                    invoke.getClass().getTypeName(),
                     JsonMapperUtils.mapper.writeValueAsString(invoke));
         }
 

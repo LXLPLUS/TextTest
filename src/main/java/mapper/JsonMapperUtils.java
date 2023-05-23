@@ -1,4 +1,4 @@
-package utils;
+package mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -24,5 +24,4 @@ public class JsonMapperUtils {
             return null;
         }
     }
-
 }
