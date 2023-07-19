@@ -18,7 +18,6 @@ public class WorkerParser implements ParserInterface {
 
     static final NotSuitParser quickParser = new NotSuitParser();
     static final CharArrayParser charArrayParser = new CharArrayParser();
-    static final ListParser listParser = new ListParser();
     static final DefaultParser defaultParser = new DefaultParser();
     static FuncParser funcParser = null;
 
@@ -58,10 +57,6 @@ public class WorkerParser implements ParserInterface {
             return charArrayParser.parser(str, char[][].class, type);
         }
 
-        // list的序列化工具
-        if (ruler.isAssignableFrom(ArrayList.class)) {
-            return listParser.parser(str, ArrayList.class, type);
-        }
         return defaultParser.parser(str, ruler, type);
     }
 }

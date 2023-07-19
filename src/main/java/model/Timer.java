@@ -11,7 +11,7 @@ public class Timer {
         list[0] = System.currentTimeMillis();
     }
 
-    public void flushFinishTIme() {
+    public void flushFinishTime() {
         list[1] = System.currentTimeMillis();
     }
 

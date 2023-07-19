@@ -19,7 +19,7 @@ public class AnnotationTask {
     Class<?> c;
     Path filePath = null;
     Method method;
-    Class<?>[] TypeArray;
+    Class<?>[] typeArray;
     String[] jsonList;
     String taskFrom = "undefined";
     Type[] realTypes;
@@ -29,7 +29,7 @@ public class AnnotationTask {
         this.c = c;
         this.filePath = filePath;
         this.method = method;
-        TypeArray = method.getParameterTypes();
+        typeArray = method.getParameterTypes();
         realTypes = method.getGenericParameterTypes();
         jsonList = FilesWalkUtils.getStringListWithOutBlackOrNote(filePath).toArray(String[]::new);
     }
@@ -38,7 +38,7 @@ public class AnnotationTask {
         this.c = c;
         this.method = method;
         realTypes = method.getGenericParameterTypes();
-        TypeArray = method.getParameterTypes();
+        typeArray = method.getParameterTypes();
         this.jsonList = jsonList;
     }
 

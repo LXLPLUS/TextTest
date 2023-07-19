@@ -15,7 +15,7 @@ public class TypeUtils {
     // java.util.List<java.util.List<java.lang.Long>> 转化为类型列表
     static public List<Class<?>> getClass(Type type) {
         String typeName = type.getTypeName();
-        String[] typeList = typeName.split("[<>]");
+        String[] typeList = typeName.split("[<,>\\s]");
         typeList = ArrayUtils.removeAllOccurences(typeList, "");
         return Arrays.stream(typeList).map(TypeUtils::ClassForName).collect(Collectors.toCollection(ArrayList::new));
     }

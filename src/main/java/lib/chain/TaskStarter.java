@@ -52,7 +52,7 @@ public class TaskStarter {
         }
         timer.flushStartTime();
         Object invoke = MethodUtils.invoke(annotationTask.getObject(), method, objectList);
-        timer.flushFinishTIme();
+        timer.flushFinishTime();
         if (invoke == null) {
             log.info("获取结果，返回数据为null");
         }
